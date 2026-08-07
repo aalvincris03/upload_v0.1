@@ -86,7 +86,7 @@ def hash_password(password):
 def allowed_file(filename):
     """Check if the file extension is allowed."""
     if '.' not in filename:
-        return False
+        return True # extension file dati False
     ext = filename.rsplit('.', 1)[1].lower()
     return ext in app.config['ALLOWED_EXTENSIONS']
 
