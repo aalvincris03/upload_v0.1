@@ -53,3 +53,26 @@ A professional and minimalist file management website built using **Flask**, **T
    ```
 
 Uploaded files are stored in the `uploads/` folder.
+
+## Deploy to Render.com
+
+### Option A: Deploy via the Render Dashboard (Recommended)
+1. Push this repository to GitHub.
+2. Go to [render.com](https://render.com) → **New** → **Web Service** → connect your GitHub repo.
+3. Use these settings:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn app:app`
+   - **Environment Variables**:
+     - `SECRET_KEY` — set a long random string (or leave blank to use the dev default)
+     - `PYTHON_VERSION` — `3.12.0` (optional if using `runtime.txt`)
+4. Click **Create Web Service**. Render will build and deploy automatically.
+
+### Option B: Deploy via `render.yaml` (Blueprint)
+1. Push this repository (which includes `render.yaml`) to GitHub.
+2. On Render, go to **New** → **Blueprint** → select the repo.
+3. Render will read `render.yaml` and create the service automatically.
+
+### ⚠️ Important Notes
+- **Ephemeral storage**: Render uses an ephemeral filesystem. Uploaded files and `passwords.json` are **lost on every restart/redeploy**. This is fine for testing, but for permanent storage you would need to integrate an external service (e.g., AWS S3, a database, etc.).
+- The `Procfile` is already included so Render knows to run `gunicorn app:app`.
+- The `.gitignore` excludes `uploads/`, `passwords.json`, and other local files from being committed to GitHub.
