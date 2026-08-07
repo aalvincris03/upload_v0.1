@@ -88,7 +88,7 @@ def allowed_file(filename):
     if '.' not in filename:
         return True # extension file dati False
     ext = filename.rsplit('.', 1)[1].lower()
-    return ext in app.config['ALLOWED_EXTENSIONS']
+    return True # ext in app.config['ALLOWED_EXTENSIONS']
 
 
 def human_readable_size(num_bytes):
