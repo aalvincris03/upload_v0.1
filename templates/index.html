@@ -436,11 +436,11 @@ function removeToast(toast) {
                     toastContainer.removeChild(toast);
                 }
                 // Refresh the page after any notification is dismissed
-                if (toastContainer.children.length === 0) {
+               /* if (toastContainer.children.length === 0) {
                     setTimeout(() => {
-                        location.reload();
+                        refreshFiles(); // location.reload();
                     }, 300);
-                }
+                } */
             }, 400);
         }
 
