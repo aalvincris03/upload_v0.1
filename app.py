@@ -11,7 +11,7 @@ from flask import (
     jsonify,
     send_from_directory,
     abort,
-    send_file
+    send_file, redirect
 )
 from werkzeug.utils import secure_filename
 
@@ -202,7 +202,7 @@ def upload_file():
 # ---------------------------------------------------------------
 # (c) List all files (JSON)
 # ---------------------------------------------------------------
-@app.route('/files')
+@app.route('/api/files')
 def files_list():
     files = list_files_json()
     total_size = sum(f['size_bytes'] for f in files)
@@ -213,7 +213,9 @@ def files_list():
         'total_files': len(files)
     })
 
-
+@app.route('/files')
+def files_redirect():
+    return redirect('/')
 # ---------------------------------------------------------------
 # (d) Download / Preview a file
 # ---------------------------------------------------------------
