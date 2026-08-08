@@ -245,7 +245,7 @@ def file_content(filename):
 
     # Only return text content for readable text-based files
     text_exts = {'txt', 'md', 'csv', 'json', 'xml', 'html', 'htm', 'css',
-                 'js', 'py', 'log', 'ini', 'yml', 'yaml', 'conf', 'rtf'}
+                 'js', 'py', 'log', 'ini', 'yml', 'yaml', 'conf', 'rtf', 'pdf', 'docx'}
     ext = safe_name.rsplit('.', 1)[1].lower() if '.' in safe_name else ''
 
     if ext not in text_exts:
