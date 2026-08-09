@@ -601,7 +601,7 @@ dropZone.addEventListener('drop', (e) => {
             const icon = document.getElementById('refreshIcon');
             icon.classList.add('fa-spin');
 
-fetch('/api/files')
+fetch('/files')
                 .then(res => res.json())
                 .then(data => {
                     if (totalSize) {
@@ -817,7 +817,7 @@ function deleteFile(name, isProtected) {
             const confirmed = window.confirm(`Are you sure you want to delete the file "${decoded}"?\nThis cannot be undone.`);
             if (!confirmed) return;
 
-            fetch('/api/files/' + name, { method: 'DELETE' })
+            fetch('/files/' + name, { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
@@ -1028,7 +1028,7 @@ const passwordModal = document.getElementById('passwordModal');
             const confirmed = window.confirm(`Are you sure you want to delete the file "${decoded}"?\nThis cannot be undone.`);
             if (!confirmed) return;
 
-            fetch('/api/files/' + name, { method: 'DELETE' })
+            fetch('/files/' + name, { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
@@ -1067,7 +1067,7 @@ const passwordModal = document.getElementById('passwordModal');
         function toggleLayout() {
             layout = layout === 'grid' ? 'list' : 'grid';
             // Re-render using cached data
-            fetch('/api/files').then(r => r.json()).then(d => renderFiles(d.files || [], layout));
+            fetch('/files').then(r => r.json()).then(d => renderFiles(d.files || [], layout));
         }
 
         // Load files on page load
