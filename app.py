@@ -202,19 +202,30 @@ def upload_file():
 # ---------------------------------------------------------------
 # (c) List all files (JSON)
 # ---------------------------------------------------------------
-@app.route('/api/files')
-def files_list():
-    files = list_files_json()
-    total_size = sum(f['size_bytes'] for f in files)
-    return jsonify({
-        'success': True,
-        'files': files,
-        'total_size': human_readable_size(total_size),
-        'total_files': len(files)
-    })
+# @app.route('/files')
+# def files_list():
+#     files = list_files_json()
+#     total_size = sum(f['size_bytes'] for f in files)
+#     return jsonify({
+#         'success': True,
+#         'files': files,
+#         'total_size': human_readable_size(total_size),
+#         'total_files': len(files)
+#     })
 
 @app.route('/files')
-def files_redirect():
+def files_list():
+    # Titingnan kung ang request ay nag-eexpect ng JSON response
+    if request.is_json or 'application/json' in request.headers.get('Accept', ''):
+        files = list_files_json()
+        total_size = sum(f['size_bytes'] for f in files)
+        return jsonify({
+            'success': True,
+            'files': files,
+            'total_size': human_readable_size(total_size),
+            'total_files': len(files)
+        })
+        
     return redirect('/')
 # ---------------------------------------------------------------
 # (d) Download / Preview a file
