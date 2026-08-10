@@ -228,7 +228,7 @@ def files_redirect():
 # ---------------------------------------------------------------
 # (d) Download / Preview a file
 # ---------------------------------------------------------------
-@app.route('/files/<path:filename>')
+@app.route('/api/files/<path:filename>')
 def download_file(filename):
     safe_name = secure_filename(filename)
     if not safe_name:
