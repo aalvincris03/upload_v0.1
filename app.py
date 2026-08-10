@@ -202,7 +202,7 @@ def upload_file():
 # ---------------------------------------------------------------
 # (c) List all files (JSON)
 # ---------------------------------------------------------------
-@app.route('/files')
+@app.route('/api/files')
 def files_list():
     files = list_files_json()
     total_size = sum(f['size_bytes'] for f in files)
@@ -212,6 +212,10 @@ def files_list():
         'total_size': human_readable_size(total_size),
         'total_files': len(files)
     })
+
+@app.route('/files')
+def files_redirect():
+    return redirect('/')
 
 # ---------------------------------------------------------------
 # (d) Download / Preview a file
