@@ -791,6 +791,17 @@ function previewFile(name, isProtected) {
                     });
                 return;
             }
+    if (ext === 'pdf') {
+    // I-render ang PDF gamit ang iframe sa halip na kumuha ng text content
+    modalBody.innerHTML = `
+        <iframe 
+            src="/api/files/${encodeURIComponent(filename)}" 
+            class="w-full h-[600px] rounded-lg border-0">
+        </iframe>
+    `;
+    openModal(); // o ang function mo para buksan ang modal window
+    return;
+    }
 
             // Other files: show a helpful message with a download link
             modalBody.innerHTML = `
