@@ -601,7 +601,7 @@ dropZone.addEventListener('drop', (e) => {
             const icon = document.getElementById('refreshIcon');
             icon.classList.add('fa-spin');
 
-fetch('/files')
+fetch('/api/files')
                 .then(res => res.json())
                 .then(data => {
                     if (totalSize) {
@@ -668,7 +668,7 @@ function renderFiles(files) {
                                     </div>`;
                 } else if (imageExts.includes(ext)) {
                     previewHtml = `<div class="w-full h-36 bg-gray-50 flex items-center justify-center overflow-hidden">
-                                        <img src="/files/${encodeURIComponent(file.name)}" alt="${file.name}" class="w-full h-full object-cover">
+                                        <img src="/api/files/${encodeURIComponent(file.name)}" alt="${file.name}" class="w-full h-full object-cover">
                                     </div>`;
                 } else if (textExts.includes(ext)) {
                     previewHtml = `<div class="w-full h-36 bg-slate-900 overflow-hidden">
@@ -762,7 +762,7 @@ function previewFile(name, isProtected) {
 
             modalTitle.textContent = displayName;
 
-            // Images: show directly from /files/<name>
+            // Images: show directly from /api/files/<name>
             if (imageExts.includes(ext)) {
                 modalBody.innerHTML = `<img src="/files/${encodeURIComponent(name)}" class="modal-image" alt="${displayName}">`;
                 openModal();
@@ -817,7 +817,7 @@ function deleteFile(name, isProtected) {
             const confirmed = window.confirm(`Are you sure you want to delete the file "${decoded}"?\nThis cannot be undone.`);
             if (!confirmed) return;
 
-            fetch('/files/' + name, { method: 'DELETE' })
+            fetch('/api/files/' + name, { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
@@ -1028,7 +1028,7 @@ const passwordModal = document.getElementById('passwordModal');
             const confirmed = window.confirm(`Are you sure you want to delete the file "${decoded}"?\nThis cannot be undone.`);
             if (!confirmed) return;
 
-            fetch('/files/' + name, { method: 'DELETE' })
+            fetch('/api/files/' + name, { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
@@ -1067,7 +1067,7 @@ const passwordModal = document.getElementById('passwordModal');
         function toggleLayout() {
             layout = layout === 'grid' ? 'list' : 'grid';
             // Re-render using cached data
-            fetch('/files').then(r => r.json()).then(d => renderFiles(d.files || [], layout));
+            fetch('/api/files').then(r => r.json()).then(d => renderFiles(d.files || [], layout));
         }
 
         // Load files on page load
