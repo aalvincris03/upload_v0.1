@@ -14,7 +14,7 @@ from flask import (
     send_file, redirect
 )
 from werkzeug.utils import secure_filename
-
+from flask_cors import CORS
 # ---------------------------------------------------------------
 # Configuration (previously in config.py, now inline)
 # ---------------------------------------------------------------
@@ -53,6 +53,14 @@ class Config:
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+CORS(app, resources={r"/*": {"origin": "*"}})
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    return response
 
 # Ensure the upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
